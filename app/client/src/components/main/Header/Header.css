@@ -1,0 +1,13 @@
+.dropdown-menu {
+    
+    right: 0 !important;
+    left: auto !important;
+}
+
+
+.counter.counter-lg {
+    position: relative;
+    top: -24px !important;
+}
+
+
