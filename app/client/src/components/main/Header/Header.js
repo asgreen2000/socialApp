@@ -5,20 +5,23 @@ const Header = props => {
 
     
     return (
-    <nav className="mb-1 navbar navbar-expand-md navbar-dark bg-primary px-1">
+    <nav className="mb-1 navbar navbar-expand-md navbar-dark main-color px-1 h-100">
       <Link className="navbar-brand" to="facebook.com">TickTick</Link>
       <button className="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-3" aria-controls="navbarSupportedContent-3" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="navbarSupportedContent-3">
-
-            <Link className="nav-link text-white mx-auto" to="facebook.com">Trang chủ
+            <div className="mx-auto d-md-flex">
+            <Link className="nav-link text-white" to="facebook.com">Trang chủ
             </Link>
-        
+            <Link className="nav-link text-white" to="facebook.com">Tìm kiếm
+            </Link>
+            </div>
         <div className="navbar-nav nav-flex-icons">
           
-            <Link className="text-white nav-link" to='/mess'>
-                <i className="fab fa-facebook-messenger"></i>
+            <Link className="text-white nav-link" to='/messenger'>
+                <i className="fab fa-facebook-messenger d-none d-md-inline"></i>
+                <span className="text-white d-md-none">Trò chuyện</span>
                 <span class="position-absolute translate-middle badge rounded-pill bg-danger">
                 99+
               </span>

@@ -10,4 +10,14 @@
     top: -24px !important;
 }
 
+.nav-link {
+    border-radius: 3rem;
+}
 
+.nav-link:hover {
+    background-color: #71DFE7 !important;
+}
+
+.main-color {
+    background-color: #009DAE;
+}
