@@ -1,18 +1,26 @@
 import {io} from 'socket.io-client';
-import {useEffect, useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 
 const Messenger = props => {
     
     const socket = useRef();
-
+    const [messages, setMessages] = useState([]);
+    
     useEffect(() => {
 
         socket.current = io("ws://localhost:3333");
-        socket.current.emit("message", {message: "fsfsdfd"});
-    }, []);
+        
+        socket.current.on('message', message => {
 
-    return <div className="fdkdsh">
-        fsdfd
+            setMessages([...messages, message]);
+        });
+
+    }, [messages]);
+
+    return <div>
+        {
+            messages.map(msg => <p>{msg}</p>)
+        }
     </div>
 }
 
