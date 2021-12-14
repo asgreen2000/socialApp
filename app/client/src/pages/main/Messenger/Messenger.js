@@ -8,12 +8,12 @@ const Messenger = props => {
     
     useEffect(() => {
 
-        socket.current = io("ws://localhost:3333");
+        // socket.current = io("ws://localhost:3333");
         
-        socket.current.on('message', message => {
+        // socket.current.on('message', message => {
 
-            setMessages([...messages, message]);
-        });
+        //     setMessages([...messages, message]);
+        // });
 
     }, [messages]);
 
