@@ -37,7 +37,7 @@ function App() {
 
   return <div className="App">
 
-    {/* login doesn't required header */}
+    {/* login doesn't require header */}
     {
       location.pathname === pathName.LOGIN 
       || location.pathname === pathName.REGISTER
