@@ -2,7 +2,11 @@
 
 const pathName = {
 
-    LOGIN: '/login'
+    LOGIN: '/login',
+    REGISTER: '/register',
+    AUTH: '/auth',
+    MESSENGER: '/messenger',
+    NOTFOUND: '/*'
 };
 
 export default pathName;

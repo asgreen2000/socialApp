@@ -15,7 +15,8 @@
 }
 
 .nav-link:hover {
-    background-color: #118562 !important;
+    background-color: white !important;
+    color: black !important;
 }
 
 .main-color {

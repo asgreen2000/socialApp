@@ -1,13 +1,18 @@
 import {useState} from 'react';
-import axios from 'axios';
+
+import { login } from '../../api/services';
+import pathName from '../../pathname';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = props => {
-
+    
     const [data, setData] = useState({
 
       username: "",
       password: ""
     });
+
+    const navigate = useNavigate();
 
     const handleOnChange = (event) => {
 
@@ -16,17 +21,17 @@ const Login = props => {
       setData({...data});
     }
 
-    const handleOnSubmit = async () => {
+    const handleOnSubmit = () => {
 
-      axios.post('http://localhost:3333/login', JSON.stringify(data),
-      {withCredentials: true}
-      )
+      login(data).then(() => {
+        navigate('/messenger')
+      });
      
     }
 
 
     return (
-        <section className="vh-100" style={{backgroundColor: "#7CD1B8"}}>
+        <section className="vh-100">
           <div className="container py-5 h-100">
             <div className="row d-flex justify-content-center align-items-center h-100">
               <div className="col col-xl-10">
@@ -73,7 +78,8 @@ const Login = props => {
                           </div>
 
                           <a className="small text-muted" href="#!">Quên mật khẩu?</a>
-                          <p className="mb-5 pb-lg-2" style={{color: "#393f81"}}>Bạn chưa có tài khoản? <a href="#!" style={{color: "#393f81"}}>Đăng ký thôi nào</a></p>
+                          <p className="mb-5 pb-lg-2" style={{color: "#393f81"}}>Bạn chưa có tài khoản? 
+                          <Link to={pathName.REGISTER} style={{color: "#393f81"}}>Đăng ký thôi nào</Link></p>
                         </form>
 
                       </div>

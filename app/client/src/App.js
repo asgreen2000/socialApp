@@ -7,6 +7,8 @@ import { useEffect } from 'react';
 import pathName from './pathname';
 import { ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Register from './pages/common/Register';
+import NotFound from './pages/common/404NotFound';
 
 function App() {
 
@@ -37,12 +39,17 @@ function App() {
 
     {/* login doesn't required header */}
     {
-      location.pathname === pathName.LOGIN ? null: <Header />
+      location.pathname === pathName.LOGIN 
+      || location.pathname === pathName.REGISTER
+      ? null: <Header />
     }
     
     <Routes>
 
-      <Route path='login' element={<Login />}/>
+      <Route path={pathName.LOGIN} element={<Login />}/>
+      <Route path={pathName.REGISTER} element={<Register />}/>
+      <Route path={pathName.NOTFOUND} element={<NotFound />}/>
+
       {
         MainRoutes.map((route, index) => {
 

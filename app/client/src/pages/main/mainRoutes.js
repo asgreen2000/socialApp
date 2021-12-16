@@ -1,11 +1,12 @@
 import Messenger from "./Messenger/Messenger";
-
+import ProtectedRoute from "../../components/common/ProtectedRoute";
+import pathName from "../../pathname";
 
 const MainRoutes = [
 
     {
-        path: '/messenger',
-        component: <Messenger />
+        path: pathName.MESSENGER,
+        component: <ProtectedRoute element={<Messenger />} path={pathName.MESSENGER}/>
     }
 
 ];

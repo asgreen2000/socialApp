@@ -3,8 +3,10 @@ const app = express();
 const cors = require('cors');
 const session = require('express-session');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+require('dotenv').config();
 
-app.use(express.urlencoded({extended: true}));
+// app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(session({
   resave: true, 
@@ -28,13 +30,12 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 
-const url = 'mongodb+srv://admin-asgreen:0353297204@cluster0.aywbz.mongodb.net/social-app';
 const user = [];
 
 const connectDB = async () => {
   try {
     mongoose.connect(
-      url,
+      process.env.URL,
       { 
         useNewUrlParser: true,
         useUnifiedTopology: true

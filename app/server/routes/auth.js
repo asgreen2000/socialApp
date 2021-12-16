@@ -25,7 +25,7 @@ router.post('/register', async (req, res) => {
 
     } catch (error) {
         
-        res.status(500).json({message: "Fail", success: false});
+      res.status(500).json({message: "Fail", success: false});
     }
 
 
@@ -35,21 +35,53 @@ router.post('/register', async (req, res) => {
 router.post("/login", async (req, res) => {
     try {
       
-      console.log(req.sessionID);
-      const user = await User.findOne({ username: req.body.username });
-      !user && res.status(404).json("user not found");
-  
-      const validPassword = await bcrypt.compare(req.body.password, user.password);
-      !validPassword && res.status(400).json("wrong password");
       
-      
-      res.status(200).json(user)
-    } catch (err) {
+      let statusCode = 200;
+      let respData = null;
+      req.session.isLogged = false;
 
+      const user = await User.findOne({ username: req.body.username });
+      
+      // set session data
+      req.session.user = user;
+    
+
+      if (!user) {
+        statusCode = 401;
+        respData = {message: "User not found"};
+      }
+      else {
+        const validPassword = await bcrypt.compare(req.body.password, user.password);
+
+        if (!validPassword)
+        {
+          statusCode = 401;
+          respData = {message: "Wrong password"};
+        }
+        else {
+          statusCode = 200;
+          respData = user;
+          req.session.isLogged = true;
+        }
+      }
+      
+      res.status(statusCode).json(respData);
+
+    } catch (err) {
+      
       res.status(500).json(err)
     }
 });
 
+router.get('/auth', (req, res) => {
 
+
+  const data = {};
+
+  data['isLogged'] = req.session.isLogged === undefined ? false : req.session.isLogged;
+  data['user'] = req.session.user === undefined ? null: req.session.user;
+  res.status(200).json(data);
+
+});
 
 module.exports = router;
