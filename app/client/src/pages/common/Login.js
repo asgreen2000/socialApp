@@ -1,10 +1,13 @@
-import {useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 
 import { login } from '../../api/services';
 import pathName from '../../pathname';
 import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/Authentication';
 
 const Login = props => {
+    
+    const {authData, refreshAuthData} = useContext(AuthContext);
     
     const [data, setData] = useState({
 
@@ -17,18 +20,25 @@ const Login = props => {
     const handleOnChange = (event) => {
 
       data[event.target.name] = event.target.value;
-      console.log(data);
+      
       setData({...data});
     }
 
     const handleOnSubmit = () => {
 
-      login(data).then(() => {
-        navigate('/messenger')
-      });
+      if (data.username !== '')
+        login(data).then(() => {
+          refreshAuthData();
+          navigate('/messenger');
+        });
      
     }
 
+    useEffect(() => {
+
+      if (authData && authData.isLogged)
+        navigate('/messenger');
+    }, [authData]);
 
     return (
         <section className="vh-100">

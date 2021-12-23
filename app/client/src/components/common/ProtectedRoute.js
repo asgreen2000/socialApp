@@ -1,24 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import pathname from '../../pathname';
 import { getAuthData } from "../../api/services";
+import { AuthContext } from "../../context/Authentication";
 
 const ProtectedRoute = props => {
 
-    const [isAuth, setIsAuth] = useState(false);
-    const [isLoaded, setIsLoaded] = useState(false);
+    const {authData} = useContext(AuthContext);
+    
     const {element} = props;
     const location = useLocation();
-    
-    useState(() => {
+    console.log(authData);
 
-        console.log("12312");
-        getAuthData();
-
-    }, [isAuth]);
-
-    return !isLoaded ? null :
-    isAuth ? element: <Navigate state = {location.pathname} to={pathname.LOGIN}/>
+    return !authData ? null: authData.isLogged ?  element: <Navigate state = {location.pathname} to={pathname.LOGIN}/>
 
 }
 

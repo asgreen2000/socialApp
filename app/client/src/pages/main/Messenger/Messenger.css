@@ -1,0 +1,13 @@
+
+
+.messenger {
+    min-height: 100vh;
+}
+
+.round {
+    border-radius: 1.5rem;
+}
+
+.bg-msg {
+    background: #fff;
+}

@@ -66,7 +66,11 @@ const getAuthData = () => {
 
         axios.get(url + pathName.AUTH).then(result => {
             console.log(result);
-        });
+            resolve(result.data);
+        }).catch(error => {
+            reject(error);
+        })
+        ;
 
     })
 

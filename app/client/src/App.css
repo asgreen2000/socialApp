@@ -1,7 +1,3 @@
-.App {
-  text-align: center;
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -26,6 +22,11 @@
 
 .App-link {
   color: #61dafb;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 @keyframes App-logo-spin {

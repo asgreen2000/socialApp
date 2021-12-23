@@ -9,6 +9,7 @@ import { ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Register from './pages/common/Register';
 import NotFound from './pages/common/404NotFound';
+import Authentication from './context/Authentication';
 
 function App() {
 
@@ -31,11 +32,12 @@ function App() {
   useEffect(() => {
 
 
-    notify(location.pathname);
+    
 
   }, [location]);
 
   return <div className="App">
+    <Authentication>
 
     {/* login doesn't require header */}
     {
@@ -69,6 +71,7 @@ function App() {
         draggable
         pauseOnHover
       />
+      </Authentication>
   </div>
   
 }

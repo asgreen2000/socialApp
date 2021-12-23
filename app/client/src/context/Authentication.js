@@ -1,13 +1,38 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { getAuthData } from "../api/services";
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 
 const Authentication = ({children}) => {
 
-    useState
+    const [authData, setAuthData] = useState(null);
 
-    return <AuthContext.Provider>
+    useEffect(() => {
+ 
+        refreshAuthData();
+        
+    }, []);
+
+    const refreshAuthData = () => {
+        getAuthData().then(data => {
+            console.log("!23");
+            console.log(authData);
+            setAuthData(data);
+        }).catch(error => 
+            {}
+        );
+    }
+
+    const data = {
+        authData,
+        refreshAuthData
+    };
+
+
+    return <AuthContext.Provider value={data}>
         {children}
     </AuthContext.Provider>
 }
+
+export default Authentication;
