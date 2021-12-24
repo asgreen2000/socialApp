@@ -1,5 +1,3 @@
-
-
 .messenger {
     min-height: 100vh;
 }
@@ -10,4 +8,8 @@
 
 .bg-msg {
     background: #fff;
+}
+
+.online {
+    color: #0df109;
 }

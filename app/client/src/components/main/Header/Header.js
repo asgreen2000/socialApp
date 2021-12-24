@@ -3,9 +3,9 @@ import './Header.css';
 
 const Header = props => {
     
-    
+
     return (
-    <nav className="mb-1 navbar navbar-expand-md navbar-dark px-1 h-100">
+    <nav className="mb-1 navbar navbar-expand-md navbar-dark px-1 header">
       <Link className="navbar-brand" to="facebook.com">TickTick</Link>
       <button className="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-3" aria-controls="navbarSupportedContent-3" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon text-body"></span>
@@ -28,7 +28,7 @@ const Header = props => {
             </Link>
             <Link className="nav-link d-md-none" to="facebook.com">Tài khoản</Link>
             <Link className="nav-link d-md-none" to="facebook.com">Bạn bè</Link>
-            <Link className="nav-link d-md-none" to="facebook.com">Đăng xuất</Link>
+            <Link className="nav-link d-md-none" to="/logout">Đăng xuất</Link>
         
             <button className="btn text-white dropdown-toggle dropdown-toggle-split d-none d-md-block" id="navbarDropdownMenuLink" data-bs-toggle="dropdown">
               <i className="fas fa-user"></i>
@@ -37,7 +37,7 @@ const Header = props => {
             <div className="dropdown-menu">
               <Link className="dropdown-item" to="facebook.com">Tài khoản</Link>
               <Link className="dropdown-item" to="facebook.com">Bạn bè</Link>
-              <Link className="dropdown-item" to="facebook.com">Đăng xuất</Link>
+              <Link className="dropdown-item" to="/logout" >Đăng xuất</Link>
             </div>
         </div>
       </div>

@@ -35,7 +35,7 @@ router.post('/register', async (req, res) => {
 router.post("/login", async (req, res) => {
     try {
       
-      
+
       let statusCode = 200;
       let respData = null;
       req.session.isLogged = false;
@@ -64,7 +64,7 @@ router.post("/login", async (req, res) => {
           req.session.isLogged = true;
         }
       }
-      
+     
       res.status(statusCode).json(respData);
 
     } catch (err) {
@@ -80,6 +80,25 @@ router.get('/auth', (req, res) => {
 
   data['isLogged'] = req.session.isLogged === undefined ? false : req.session.isLogged;
   data['user'] = req.session.user === undefined ? null: req.session.user;
+
+  res.status(200).json(data);
+
+});
+
+router.get('/logout', (req, res) => {
+
+  const data = {};
+
+  if (req.session.isLogged !== undefined && req.session.isLogged)
+  { 
+    req.session.isLogged = false;
+    req.session.user = null;
+    data.message = "success";
+  }
+  else {
+    data.message = "Not logged in";
+  }
+  
   res.status(200).json(data);
 
 });

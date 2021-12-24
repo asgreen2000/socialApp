@@ -6,7 +6,10 @@ const pathName = {
     REGISTER: '/register',
     AUTH: '/auth',
     MESSENGER: '/messenger',
-    NOTFOUND: '/*'
+    NOTFOUND: '/*',
+    LOGOUT: '/logout',
+    CONVERSATION: '/conversation',
+    MESSAGE: '/message'
 };
 
 export default pathName;

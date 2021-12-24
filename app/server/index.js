@@ -12,14 +12,16 @@ app.use(session({
   resave: true, 
   saveUninitialized: true, 
   secret: 'somesecret', 
-  cookie: {maxAge:60000}})
+  cookie: {maxAge:86400000}})
 );
 
 var whitelist = ['http://localhost:3000', /** other domains if any */ ]
 var corsOptions = {
   credentials: true,
   origin: function(origin, callback) {
+    
     if (whitelist.indexOf(origin) !== -1) {
+      
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
@@ -63,8 +65,13 @@ app.get('/', (req, res) => {
 
 
 const userRouter = require('./routes/auth');
+const conversRouter = require('./routes/conversation');
+const msgRouter = require('./routes/message');
 
+app.use('/message', msgRouter);
+app.use('/conversation', conversRouter);
 app.use('/', userRouter);
+
 let serve = app.listen(3333, () => {
 
 

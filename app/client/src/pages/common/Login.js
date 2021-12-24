@@ -8,7 +8,10 @@ import { AuthContext } from '../../context/Authentication';
 const Login = props => {
     
     const {authData, refreshAuthData} = useContext(AuthContext);
+    const NEW = 1;
+    const PROCESSING = 2;
     
+    const [status, changeStatus] = useState(NEW);
     const [data, setData] = useState({
 
       username: "",
@@ -24,15 +27,30 @@ const Login = props => {
       setData({...data});
     }
 
-    const handleOnSubmit = () => {
+    const handleOnSubmit = (event) => {
 
-      if (data.username !== '')
+        event.preventDefault();
+
+        changeStatus(PROCESSING);
+
         login(data).then(() => {
+          
           refreshAuthData();
           navigate('/messenger');
+        })
+        .catch(_ => {
+
+          changeStatus(NEW);
         });
+        ;
      
     }
+
+    useEffect(() => {
+
+      changeStatus(NEW);
+      
+    }, []);
 
     useEffect(() => {
 
@@ -82,11 +100,20 @@ const Login = props => {
                           </div>
 
                           <div className="pt-1 mb-4">
-                            <button className="btn btn-outline-dark btn-lg btn-block" type="button"
+                            <button className="btn btn-outline-dark btn-lg btn-block" type="submit"
                             onClick={handleOnSubmit}
-                            >Gửi</button>
+                            onKeyPress={handleOnSubmit}
+                            >
+                            {
+                              status === NEW ? "Gửi" : <div class="spinner-border text-sm" role="status">
+                              <span class="sr-only">Loading...</span>
                           </div>
-
+                            }
+                          </button>
+                            
+                          </div>
+                          
+                          
                           <a className="small text-muted" href="#!">Quên mật khẩu?</a>
                           <p className="mb-5 pb-lg-2" style={{color: "#393f81"}}>Bạn chưa có tài khoản? 
                           <Link to={pathName.REGISTER} style={{color: "#393f81"}}>Đăng ký thôi nào</Link></p>

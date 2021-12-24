@@ -3,6 +3,14 @@
   pointer-events: none;
 }
 
+.header {
+  height: 6vh;
+}
+
+.height-middle {
+  height: 80vh;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

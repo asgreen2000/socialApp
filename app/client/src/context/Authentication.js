@@ -16,8 +16,7 @@ const Authentication = ({children}) => {
 
     const refreshAuthData = () => {
         getAuthData().then(data => {
-            console.log("!23");
-            console.log(authData);
+            
             setAuthData(data);
         }).catch(error => 
             {}

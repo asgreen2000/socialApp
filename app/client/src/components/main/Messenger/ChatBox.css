@@ -1,0 +1,42 @@
+
+.chatbox-header {
+    border-bottom: 0.1rem solid #e3ece9;
+}
+
+.chatbox-header img {
+    width: 3rem;
+    border-radius: 50%;
+}
+
+.chatbox-content {
+    height: 80%;
+    overflow-y: scroll;
+}
+
+.chatbox-content ul {
+    list-style: none;
+}
+
+.chatbox-content ul li.left {
+    display: flex;
+    justify-content: start;
+}
+.chatbox-content ul li.right {
+    display: flex;
+    justify-content: end;
+}
+
+.chatbox-content ul li .message {
+    background-color: #406882;
+    width: 50%;
+    color: white;
+    font-size: 1rem;
+    border-radius: 1rem;
+}
+
+.chatbox-content ul li.left .message {
+    background-color: rgb(133, 147, 160);
+}
+
+
+
