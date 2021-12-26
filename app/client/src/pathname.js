@@ -9,7 +9,8 @@ const pathName = {
     NOTFOUND: '/*',
     LOGOUT: '/logout',
     CONVERSATION: '/conversation',
-    MESSAGE: '/message'
+    MESSAGE: '/message',
+    USER: '/user'
 };
 
 export default pathName;

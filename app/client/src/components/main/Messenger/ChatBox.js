@@ -15,22 +15,24 @@ const ChatBox = ({currentConv}) => {
         msgEnd.current.scrollIntoView({ behavior: 'smooth' })
     }
 
-    useEffect(() => {
 
-        scrollToBottom();
-        
-    }, []);
 
     useEffect(() => {
 
+            
         getMessages();
+        
     }, [currentConv]);
+
+    useEffect(() => {
+
+        scrollToBottom();   
+    }, [messages]);
 
     const getMessages = async () => {
 
         try {
             const data = await getConversation(currentConv._id);
-            console.log(data);
             setMessages(data);
         } catch (error) {
             console.log(error);
@@ -40,14 +42,23 @@ const ChatBox = ({currentConv}) => {
     const handleOnChange = event => {
 
         setNewMsg(event.target.value);
-        console.log(newMsg);
+        
     }
 
     const handleOnSend = event => {
         
-        addMessage(currentConv._id, authData.user._id, newMsg);
+        const data = {
+            conversationId: currentConv._id,
+            sender: authData.user._id,
+            text: newMsg
+        }
+
+        addMessage(data);
+
+        setMessages([...messages, data]);
         setNewMsg("");
-        getMessages();
+        
+        
     }
 
     return <div className="height-middle p-2">
@@ -89,9 +100,9 @@ const ChatBox = ({currentConv}) => {
                 <input type="text" className="form-control" placeholder="Enter text here..."
                 value={newMsg} onChange={handleOnChange}
                 />    
-                <div className="input-group-prepend">
+                <div className="input-group-prepend" onClick={handleOnSend}>
                     <span className="input-group-text h-100"><i className="fas fa-paper-plane text-primary"
-                    onClick={handleOnSend}
+                    
                     ></i></span>
                 </div>                                
             </div>

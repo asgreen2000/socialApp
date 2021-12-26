@@ -19,11 +19,11 @@
 
 .chatbox-content ul li.left {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
 }
 .chatbox-content ul li.right {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .chatbox-content ul li .message {

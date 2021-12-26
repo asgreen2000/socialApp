@@ -146,13 +146,13 @@ const getConversation = conversationID => {
     })
 }
 
-const addMessage = (conversationId, sender, text) => {
+const addMessage = (data) => {
 
     
 
     return new Promise((resolve, reject) => {
 
-        const data = {conversationId, sender, text};
+       
 
         axios.post(url + pathName.MESSAGE, JSON.stringify(data),
             {   headers: {
@@ -173,7 +173,25 @@ const addMessage = (conversationId, sender, text) => {
     })
 }
 
+const getUserInfo = (userID) => {
+
+    return new Promise((resolve, reject) => {
+
+        axios.get(url + pathName.USER + '?userID=' + userID).then(result => {
+            
+            console.log(result);
+            resolve(result.data);
+        }).catch(error => {
+            reject(error);
+        })
+        ;
+
+    })
+
+}
+
 export {login, getAuthData, register, logout, 
 createConversation, getAllConversations
 ,getConversation, addMessage
+,getUserInfo
 };

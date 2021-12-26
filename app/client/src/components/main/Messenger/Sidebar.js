@@ -1,22 +1,24 @@
+import Conversation from "./Conversation";
 import "./Sidebar.css";
 
-const Sidebar = props => {
+const Sidebar = ({conversations, setCurrentConv}) => {
 
-    const arr = [...Array(10).keys()];
+    const changeCurrentConv = conversation => {
+        
+        setCurrentConv({...conversation});
+    }
 
     return <div className="px-3 py-3 height-middle">
         
         <ul class="list-unstyled chat-list mt-2 mb-0">
 
             {
-                arr.map(_ => {
+                conversations.map((conversation, index) => {
 
-                    return  <li class="clearfix active d-flex mb-3">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar" className='me-2'/>
-                    <div class="about">
-                        <div class="name">Aiden Chavez</div>
-                        <div class="status"> <i class="fa fa-circle online"></i> online </div>
-                    </div>
+                    return  <li class="clearfix active d-flex mb-3" key={index}
+                    onClick={() => changeCurrentConv(conversation)}
+                    >
+                    <Conversation conversation={conversation}/>
                 </li>
                 }) 
             }

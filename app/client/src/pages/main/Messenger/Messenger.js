@@ -30,12 +30,12 @@ const Messenger = props => {
 
     }, []);
 
+    
 
     const getData = async () => {
 
         try {
             const conversations = await getAllConversations(authData.user._id);
-            const messages = await getConversation(conversations[0]._id);
             setConversations(conversations);
             setCurrentConv(conversations[0]);
         } catch (error) {
@@ -47,7 +47,7 @@ const Messenger = props => {
         
         <div className='col-3 p-3'>
             <div className='bg-msg round'>
-                <Sidebar />
+                <Sidebar conversations={conversations} setCurrentConv={setCurrentConv}/>
             </div>
         </div>
         

@@ -64,13 +64,15 @@ app.get('/', (req, res) => {
 });
 
 
-const userRouter = require('./routes/auth');
+const authRouter = require('./routes/auth');
 const conversRouter = require('./routes/conversation');
 const msgRouter = require('./routes/message');
+const userRouter = require('./routes/user');
 
 app.use('/message', msgRouter);
 app.use('/conversation', conversRouter);
-app.use('/', userRouter);
+app.use('/', authRouter);
+app.use('/user', userRouter);
 
 let serve = app.listen(3333, () => {
 
