@@ -46,12 +46,12 @@ const register = data => {
         )
         .then(res => {
             
-            console.log(res.data);
+         
             resolve(res.data);
         })
         .catch(err => {
 
-            console.log(err);
+           
             reject(err);
         })
 
@@ -65,7 +65,7 @@ const getAuthData = () => {
     return new Promise((resolve, reject) => {
 
         axios.get(url + pathName.AUTH).then(result => {
-            console.log(result);
+           
             resolve(result.data);
         }).catch(error => {
             reject(error);
@@ -80,7 +80,7 @@ const logout = () => {
     return new Promise((resolve, reject) => {
 
         axios.get(url + pathName.LOGOUT).then(result => {
-            console.log(result);
+           
             resolve(result.data);
         }).catch(error => {
             reject(error);
@@ -103,12 +103,12 @@ const createConversation = (senderId, receiverId) => {
         )
         .then(res => {
             
-            console.log(res.data);
+           
             resolve(res.data);
         })
         .catch(err => {
 
-            console.log(err);
+           
             reject(err);
         })
 
@@ -120,7 +120,7 @@ const getAllConversations = (userID) => {
     return new Promise((resolve, reject) => {
 
         axios.get(url + pathName.CONVERSATION + '/' + userID).then(result => {
-            console.log(result);
+            
             resolve(result.data);
         }).catch(error => {
             reject(error);
@@ -136,7 +136,7 @@ const getConversation = conversationID => {
     return new Promise((resolve, reject) => {
 
         axios.get(url + pathName.MESSAGE + '/' + conversationID).then(result => {
-            console.log(result);
+            
             resolve(result.data);
         }).catch(error => {
             reject(error);
@@ -161,12 +161,12 @@ const addMessage = (data) => {
         )
         .then(res => {
             
-            console.log(res.data);
+            
             resolve(res.data);
         })
         .catch(err => {
 
-            console.log(err);
+            
             reject(err);
         })
 
@@ -179,7 +179,7 @@ const getUserInfo = (userID) => {
 
         axios.get(url + pathName.USER + '?userID=' + userID).then(result => {
             
-            console.log(result);
+           
             resolve(result.data);
         }).catch(error => {
             reject(error);

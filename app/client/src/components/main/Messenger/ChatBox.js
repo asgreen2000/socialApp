@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import "./ChatBox.css";
 import { AuthContext } from "../../../context/Authentication";
 import { getConversation, addMessage} from "../../../api/services";
+import {io} from 'socket.io-client';
 
 const ChatBox = ({currentConv}) => {
     
@@ -10,10 +11,39 @@ const ChatBox = ({currentConv}) => {
     const msgEnd = useRef(null);
     const [messages, setMessages] = useState([]);
     const [newMsg, setNewMsg] = useState("");
+    const [arrivalMsg, setArrivalMsg] = useState(null);
+    const socket = useRef(null);
 
     const scrollToBottom = () => {
         msgEnd.current.scrollIntoView({ behavior: 'smooth' })
     }
+
+    useEffect(() => {
+
+        socket.current = io("ws://localhost:3333");
+        
+        socket.current.on("getMessage", (data) => {
+            console.log(data);
+            setArrivalMsg({
+              sender: data.senderID,
+              text: data.text,
+              createdAt: Date.now(),
+            });
+        });
+
+
+
+    }, []);
+
+    useEffect(() => {
+
+
+        if (arrivalMsg && currentConv.members.includes(arrivalMsg.sender))
+        {
+            setMessages([...messages, arrivalMsg]);
+        }
+
+    }, [arrivalMsg]);
 
 
 
@@ -28,6 +58,17 @@ const ChatBox = ({currentConv}) => {
 
         scrollToBottom();   
     }, [messages]);
+
+    useEffect(() => {
+
+        socket.current.emit("addUser", authData.user._id);
+        // socket.current.on("getUsers", (users) => {
+        // setOnlineUsers(
+        //     user.followings.filter((f) => users.some((u) => u.userId === f))
+        // );
+        // });
+
+    }, [authData]);
 
     const getMessages = async () => {
 
@@ -55,6 +96,17 @@ const ChatBox = ({currentConv}) => {
 
         addMessage(data);
 
+        const receiverID = currentConv.members.find(
+            (member) => member !== authData.user._id
+        );
+        
+        socket.current.emit("sendMessage", {
+            senderID: authData.user._id,
+            receiverID,
+            text: newMsg,
+        });
+
+          
         setMessages([...messages, data]);
         setNewMsg("");
         
