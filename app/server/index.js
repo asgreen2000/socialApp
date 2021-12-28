@@ -32,7 +32,7 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 
-const user = [];
+
 
 const connectDB = async () => {
   try {
@@ -81,6 +81,21 @@ let serve = app.listen(3333, () => {
 
 
 
+let users = [];
+
+const addUser = (userID, socketID) => {
+  !users.some((user) => user.userID === userID) &&
+    users.push({ userID, socketID });
+    console.log(users);
+};
+
+const removeUser = (socketID) => {
+  users = users.filter((user) => user.socketID !== socketID);
+};
+
+const getUser = (userID) => {
+  return users.find((user) => user.userID === userID);
+};
 
 const io = require("socket.io")(serve, {
     cors: {
@@ -89,11 +104,27 @@ const io = require("socket.io")(serve, {
 });
 
 io.on("connection", (socket) => {
+  
+  
+  socket.on("addUser", (userID) => {
+    addUser(userID, socket.id);
     
-    socket.on("message", (message) => {
-
-        console.log(message);
-
-    });
-    
+    io.emit("getUsers", users);
   });
+  
+  socket.on("sendMessage", ({ senderID, receiverID, text }) => {
+    const user = getUser(receiverID);
+    console.log(user);
+    user && io.to(user.socketID).emit("getMessage", {
+      senderID,
+      text
+    });
+  });
+
+  socket.on("disconnect", () => {
+    console.log("a user disconnected!");
+    removeUser(socket.id);
+    io.emit("getUsers", users);
+  });
+
+});
